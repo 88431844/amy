@@ -10,13 +10,13 @@ import picocli.CommandLine.Parameters;
  * @desc:
  * @date: 2018/07/24
  */
-@Command(name = "amy", mixinStandardHelpOptions = true, version = "amy version 0.1", description = "A fast and elegant comic crawler.")
+@Command(name = "amy", mixinStandardHelpOptions = true, version = "amy version 0.1", description = "A fast and elegant comic crawler -> (http://comic.kukudm.com/)")
 public class Comic implements Runnable {
 
-    @Option(names = {"-o", "--output"}, required = true, defaultValue = "./download", description = "存储路径")
+    @Option(names = {"-o", "--output"}, required = true, defaultValue = "./download", description = "存储位置")
     private String outputPath;
 
-    @Parameters(index = "0", paramLabel = "URL", description = "页面网址")
+    @Parameters(index = "0", paramLabel = "URL", description = "漫画主页网址")
     private String startUrl;
 
     @Override
