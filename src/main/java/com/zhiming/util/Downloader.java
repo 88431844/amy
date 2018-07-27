@@ -13,6 +13,37 @@ import java.nio.channels.ReadableByteChannel;
  */
 public class Downloader {
 
+    /**
+     * 对原始 URL 进行编码,转换字符串中特殊字符
+     *
+     * @param url
+     * @return
+     */
+    public static String encodingURL(String url) {
+        if (null == url || 0 >= url.length()) {
+            return url;
+        }
+
+        String newString = url.replace("[", "%5B");
+        newString = newString.replace("]", "%5D");
+
+        return newString;
+    }
+
+    /**
+     * 确保目录存在,不存在则创建目录(包含父目录)
+     *
+     * @param dirPath
+     * @return
+     */
+    public static boolean ensureDir(String dirPath) {
+        File dir = new File(dirPath);
+        if (!dir.isDirectory()) {
+            return dir.mkdirs();
+        }
+        return true;
+    }
+
     public static void storeData(byte[] data, String file) {
         try {
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
