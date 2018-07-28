@@ -3,7 +3,7 @@
 🔥 Amy 是一个快速优雅的漫画爬虫.
 
 <p align="center">
-    <img src="/img/demo.svg"/>
+    <img src="https://github.com/mayuanucas/amy/blob/master/img/demo.svg"/>
 </p>
 
 > Amy is a fast and elegant comic crawler.
