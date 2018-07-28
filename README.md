@@ -3,7 +3,7 @@
 🔥 Amy 是一个快速优雅的漫画爬虫.
 
 <p align="center">
-    <img src="https://github.com/mayuanucas/amy/blob/master/img/demo.svg?raw=true"/>
+    <img src="https://cdn.rawgit.com/mayuanucas/amy/a3de2e4b/img/demo.svg"/>
 </p>
 
 > Amy is a fast and elegant comic crawler.
@@ -60,7 +60,7 @@ java -jar amy.jar -o ~/Downloads/comic/ http://comic.kukudm.com/comiclist/2387/i
 下载完成后,漫画存储在指定的目录下: **~/Downloads/comic/**
 
 <p align="center">
-    <img src="/img/example.svg?raw=true"/>
+    <img src="https://cdn.rawgit.com/mayuanucas/amy/a3de2e4b/img/example.svg"/>
 </p>
 
 ## 支持站点
