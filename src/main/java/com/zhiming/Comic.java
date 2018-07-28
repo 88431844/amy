@@ -14,7 +14,7 @@ import us.codecraft.webmagic.Spider;
  */
 @Command(name = "amy", mixinStandardHelpOptions = true,
         version = "amy version 0.1",
-        description = "A fast and elegant comic crawler -> (http://comic.kukudm.com)")
+        description = "A fast and elegant comic crawler.")
 public class Comic implements Runnable {
 
     @Option(names = {"-o", "--output"}, required = true, defaultValue = "./download", description = "存储位置")
