@@ -3,7 +3,6 @@ package com.zhiming.comic;
 import com.zhiming.util.Downloader;
 import us.codecraft.webmagic.*;
 import us.codecraft.webmagic.processor.PageProcessor;
-
 import java.io.File;
 
 /**
@@ -36,7 +35,7 @@ public class KukudmPic implements PageProcessor {
             .setTimeOut(30000)
             .setRetryTimes(3)
             .setCycleRetryTimes(5)
-            .setSleepTime(5000)
+            .setSleepTime(10000)
             .setUseGzip(true)
             .setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0)");
 

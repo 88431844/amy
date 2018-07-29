@@ -6,10 +6,11 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author: mayuan
- * @desc: 获取图片的字节流,保存到指定路径文件中.
+ * @desc: 获取图片的字节流, 保存到指定路径文件中.
  * @date: 2018/07/27
  */
 public class KukudmData implements PageProcessor {
@@ -23,7 +24,7 @@ public class KukudmData implements PageProcessor {
             .setTimeOut(30000)
             .setRetryTimes(3)
             .setCycleRetryTimes(5)
-            .setSleepTime(5000)
+            .setSleepTime(10000)
             .setUseGzip(true)
             .setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0)");
 
@@ -39,7 +40,11 @@ public class KukudmData implements PageProcessor {
     public void process(Page page) {
         Downloader.ensureDir(this.dirPath);
 
-        Downloader.storeData(page.getBytes(), dirPath + File.separator + fileName);
+        try {
+            Downloader.storeBytes(page.getBytes(), dirPath + File.separator + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
