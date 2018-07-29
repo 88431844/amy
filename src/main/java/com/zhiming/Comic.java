@@ -27,7 +27,7 @@ public class Comic implements Runnable {
     public void run() {
         Spider.create(new Kukudm(outputPath))
                 .addUrl(startUrl)
-                .thread(4)
+                .thread(2)
                 .run();
 
         System.out.println("所有章节采集完毕,准备退出...");

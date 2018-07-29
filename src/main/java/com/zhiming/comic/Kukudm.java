@@ -18,7 +18,7 @@ public class Kukudm implements PageProcessor {
     public static void main(String[] args) {
         Spider.create(new Kukudm("./data"))
                 .addUrl("http://comic.kukudm.com/comiclist/2467/index.htm")
-                .thread(5)
+                .thread(4)
                 .run();
     }
 
@@ -29,7 +29,7 @@ public class Kukudm implements PageProcessor {
             .setTimeOut(30000)
             .setRetryTimes(3)
             .setCycleRetryTimes(5)
-            .setSleepTime(10000)
+            .setSleepTime(20 * 1000)
             .setUseGzip(true)
             .setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0)");
 
