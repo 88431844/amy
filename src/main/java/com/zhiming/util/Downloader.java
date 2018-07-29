@@ -1,9 +1,10 @@
 package com.zhiming.util;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 
 /**
@@ -44,51 +45,53 @@ public class Downloader {
         return true;
     }
 
-    public static void storeData(byte[] data, String file) {
-        try {
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
-            bufferedOutputStream.write(data);
-            bufferedOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void storeBytes(byte[] data, String file) throws IOException {
+        BufferedOutputStream bufferedOutputStream = null;
 
+        try {
+            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
+            bufferedOutputStream.write(data);
+        } finally {
+            bufferedOutputStream.close();
+        }
     }
 
-    public static void downloadUsingStream(String urlString, String file) {
+    public static void downloadUsingStream(String urlString, String file) throws IOException {
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
         try {
             URL url = new URL(urlString);
-            BufferedInputStream bis = new BufferedInputStream(url.openStream());
-            FileOutputStream fos = new FileOutputStream(file);
+            bis = new BufferedInputStream(url.openStream());
+            bos = new BufferedOutputStream(new FileOutputStream(file));
 
             byte[] buffer = new byte[1024];
             int count = 0;
-            while (-1 != (count = bis.read(buffer, 0, 1024))) {
-                fos.write(buffer, 0, count);
+            while (-1 != (count = bis.read(buffer))) {
+                bos.write(buffer, 0, count);
             }
-            fos.close();
+        } finally {
+            bos.close();
             bis.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    public static void downloadUsingNIO(String urlString, String file) {
+    public static void downloadUsingNIO(String urlString, String file) throws IOException {
+        URL url = new URL(urlString);
+        ReadableByteChannel fcin = Channels.newChannel(url.openStream());
+        FileChannel fcout = null;
+        ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
         try {
-            URL url = new URL(urlString);
-            ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            fos.close();
-            rbc.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            fcout = new FileOutputStream(file).getChannel();
+
+            while (-1 != fcin.read(buffer)) {
+                buffer.flip();
+                fcout.write(buffer);
+                buffer.clear();
+            }
+
+        } finally {
+            fcin.close();
+            fcout.close();
         }
     }
 }
